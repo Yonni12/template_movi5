@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Experiencias - Movi5 Vive el Pacífico</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;700;900&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#157179",
+            "forest": "#064e3b",
+            "emerald-custom": "#10b981",
+            "brown-custom": "#78350f",
+            "background-light": "#f6f8f8",
+            "background-dark": "#121f20",
+            "earth": "#451a03",
+          },
+          fontFamily: {
+            "display": ["Epilogue", "sans-serif"],
+            "serif": ["Playfair Display", "serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer base {
+            body { font-family: 'Epilogue', sans-serif; }
+            h1, h2, h3, h4, .font-serif-heading { font-family: 'Playfair Display', serif; }
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-nav {
+            background: rgba(18, 31, 32, 0.8);
+        }
+    </style>
+</head>
+
+<body
+  class="bg-background-light dark:bg-background-dark text-[#121717] dark:text-white antialiased transition-colors duration-300">
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-[#15717915]">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="principal.html" class="flex items-center gap-3">
+          <img src="images/logo.png" alt="MOVI5 Logo" class="h-10 w-auto">
+          <h1 class="text-xl font-black tracking-tight text-primary dark:text-white !font-display">MOVI5</h1>
+        </a>
+      </div>
+      <nav class="hidden md:flex items-center gap-10">
+        <a class="text-sm font-semibold hover:text-primary transition-colors" href="principal.html">Inicio</a>
+        <a class="text-sm font-semibold hover:text-primary transition-colors" href="nosotros.html">Nosotros</a>
+        <a class="text-sm font-semibold hover:text-primary transition-colors" href="destinos.html">Destinos</a>
+        <a class="text-sm font-semibold hover:text-primary transition-colors" href="hospedaje.html">Hospedajes</a>
+        <a class="text-sm font-semibold text-primary transition-colors" href="experiencias.html">Experiencias</a>
+        <a class="text-sm font-semibold hover:text-primary transition-colors" href="servicios.html">Servicios</a>
+        <a class="text-sm font-semibold hover:text-primary transition-colors" href="contacto.html">Contacto</a>
+      </nav>
+      <div class="flex items-center gap-4">
+        <button onclick="window.location.href='contacto.html'"
+          class="hidden md:block bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-bold tracking-wide hover:brightness-110 transition-all shadow-lg shadow-primary/20">
+          Reserva aquí
+        </button>
+        <!-- Burger Button -->
+        <button id="mobile-menu-button" class="md:hidden text-primary p-2">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu Drawer Integration -->
+    <!-- Backdrop Overlay -->
+    <div id="menu-backdrop"
+      class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0">
+    </div>
+
+    <!-- Side Drawer -->
+    <div id="mobile-menu"
+      class="fixed inset-y-0 right-0 h-screen w-[85%] sm:w-80 z-[9999] bg-[#0B120B] border-l border-white/10 shadow-2xl hidden transition-transform duration-500 ease-in-out transform translate-x-full"
+      style="background-color: #0B120B !important; height: 100vh !important;">
+      <div class="relative p-8 h-full flex flex-col bg-[#0B120B]">
+        <div class="flex justify-between items-center mb-12">
+          <img src="images/logo.png" alt="MOVI5 Logo" class="h-10 w-auto brightness-0 invert">
+          <button id="close-menu-button"
+            class="text-white/70 p-2 hover:text-white hover:rotate-90 transition-all duration-300">
+            <span class="material-symbols-outlined text-3xl">close</span>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-6">
+          <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+            href="principal.html">
+            <span class="material-symbols-outlined opacity-50">home</span> Inicio
+          </a>
+          <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+            href="nosotros.html">
+            <span class="material-symbols-outlined opacity-50">info</span> Nosotros
+          </a>
+          <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+            href="destinos.html">
+            <span class="material-symbols-outlined opacity-50">explore</span> Destinos
+          </a>
+          <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+            href="hospedaje.html">
+            <span class="material-symbols-outlined opacity-50">hotel</span> Hospedajes
+          </a>
+          <a class="text-xl font-bold text-white flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/10"
+            href="experiencias.html">
+            <span class="material-symbols-outlined text-primary">self_care</span> Experiencias
+          </a>
+          <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+            href="servicios.html">
+            <span class="material-symbols-outlined opacity-50">dashboard</span> Servicios
+          </a>
+          <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+            href="contacto.html">
+            <span class="material-symbols-outlined opacity-50">mail</span> Contacto
+          </a>
+
+          <div class="mt-auto pt-8 border-t border-white/10">
+            <button onclick="window.location.href='https://app.movi5.co/'"
+              class="w-full bg-primary text-white py-4 rounded-xl font-black text-lg shadow-xl hover:scale-105 transition-transform">
+              Reservar Ahora
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="relative h-[50vh] flex items-center justify-center overflow-hidden pt-20">
+    <div class="absolute inset-0 z-0">
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-background-dark/60 via-background-dark/40 to-background-light dark:to-background-dark z-10">
+      </div>
+      <div class="w-full h-full bg-center bg-cover scale-105"
+        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFclLEF676jrurcbEb--LUVcwa2fK00zm6s4E6oRjFllMQmhsxeQmv_Z9mFwqw5KJQp9g9hdXR0Zkj7fLe6IBAGLIh23baXiWyNHbcW1JMey838_CAALvz4-JhUmXa7k_0N650NYaoIJXzhm1_ZiGRDc5UHOe7pBbhn5CoYby3p7TUaQvlBGUb7vg-E09Xk2ILuiWv5hm2KKBhiUsg0zcCssucpcfOOoI3M1YboNb0TAUhdQPXEHTmLAWl5A_pZ4T7OA8umsZW-FB9");'>
+      </div>
+    </div>
+    <div class="relative z-20 text-center px-6 max-w-4xl mx-auto">
+      <span
+        class="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold tracking-[0.2em] uppercase font-display">
+        Paquetes Todo Incluido
+      </span>
+      <h1 class="text-5xl md:text-6xl font-black text-white mb-6 leading-tight">Experiencias Únicas</h1>
+    </div>
+  </section>
+
+  <section class="py-24 px-6 bg-white dark:bg-[#0d1617]">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Plan Amigas -->
+        <div
+          class="flex flex-col bg-background-light dark:bg-background-dark rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-white/5 group hover:shadow-2xl transition-all duration-300">
+          <div class="relative h-64 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBC-gRrm-wIgNOXI5L089zLVtg_8blmdfYz0eyAqdI1_teGmPjGWwqJTwo1t2AsZe81hLgJstntpWsB3YoGZxAGHEtJcm6PnWi0zH4zlc-DhgwVQasJJJVvlx0HOFKBT4u44VP-JEFLmridQA3Nj9XfutNC1-Ztrt9MU1ff4gam2s99LiDW9Qlmg5UxcaMD35eVcQzh61drplPeQj5l3Rzu7iO6hNvq1xjPPdJ7Xn-678e5S2ozwUvSJkFnI3RzB7loQVsrlQU0iV6q");'>
+            </div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold text-forest dark:text-white mb-2">Plan Amigas</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 font-display flex-grow">Fin de semana de
+              desconexión, risas y aventura diseñado especialmente para grupos de amigas.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Transporte</span>
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Alojamiento</span>
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Cócteles</span>
+            </div>
+            <button
+              class="w-full border-2 border-forest text-forest dark:border-white dark:text-white font-bold py-3 rounded-xl hover:bg-forest hover:text-white transition-all">Cotizar
+              Plan</button>
+          </div>
+        </div>
+
+        <!-- Avistamiento de Ballenas -->
+        <div
+          class="flex flex-col bg-background-light dark:bg-background-dark rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-white/5 group hover:shadow-2xl transition-all duration-300">
+          <div class="relative h-64 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+              style='background-image: url("images/whale.png");'>
+            </div>
+            <div
+              class="absolute top-4 right-4 bg-emerald-custom text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
+              En Temporada
+            </div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold text-forest dark:text-white mb-2">Avistamiento Ballenas</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 font-display flex-grow">Vive la emoción de ver a
+              las gigantes yubartas en Magüipí y Bahía Málaga.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Lancha</span>
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Guía Experto</span>
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Snack</span>
+            </div>
+            <button
+              class="w-full border-2 border-forest text-forest dark:border-white dark:text-white font-bold py-3 rounded-xl hover:bg-forest hover:text-white transition-all">Cotizar
+              Plan</button>
+          </div>
+        </div>
+
+        <!-- Ruta Pacífica -->
+        <div
+          class="flex flex-col bg-background-light dark:bg-background-dark rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-white/5 group hover:shadow-2xl transition-all duration-300">
+          <div class="relative h-64 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWycQ4HAVNHMAyGzkvz4nQKTLDfsang1_K7t-9pIUcl40kqw8yQ3gxiyusJQmqAPLEdyletTQQ0n6u49xmmKOygu09nurjHFyQfN8-bB3rR9pSAvN3l0Vch7rkjwYoJdFxg708uYKqMyZT2nfApeQwQ7PSJsei7I4fqcfan--J-HMKqGuWLHx6nAf_oamNJwsEg-PwcLE9zKpVE7SEsWdWU3jM9uuRlhS_diK4NreSpzUxBqnNhq0O1PXEhRdpoQW4lKXIa-1FAIF3");'>
+            </div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold text-forest dark:text-white mb-2">Ruta Pacífica</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 font-display flex-grow">Un recorrido completo por
+              los destinos más emblemáticos del litoral.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Multi-destino</span>
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Todo Incluido</span>
+            </div>
+            <button
+              class="w-full border-2 border-forest text-forest dark:border-white dark:text-white font-bold py-3 rounded-xl hover:bg-forest hover:text-white transition-all">Cotizar
+              Plan</button>
+          </div>
+        </div>
+
+        <!-- Saberes Ancestrales -->
+        <div
+          class="flex flex-col bg-background-light dark:bg-background-dark rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-white/5 group hover:shadow-2xl transition-all duration-300">
+          <div class="relative h-64 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBpoiPj6yrcWPM65U5S8wFeDaleRGna4ruE5LwdfPYS0P1pP51tu4pwycqlLoILztRuD8N7B_5WwBdAJzGMmkZkwRYaDd7VxOtm6VnYrTwMEniwglHLQZamrxP1D-M1yVg9csw3FCP2UqDcC_B4ggnASZwMhuha7CyT87EZAC-9mYH3mWL66iumLsrSKB9wejrEI5XyBfhIDq7fjTVDu0ohnD01L-MSLGjtjduib8pMQ-1Kx2EFK4SYxWGp9CsbOuNeUiOrjUZW-q_i");'>
+            </div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold text-forest dark:text-white mb-2">Saberes Ancestrales</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 font-display flex-grow">Conecta con la cultura
+              local, la gastronomía y las tradiciones de La Plata.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Cultural</span>
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Gastronomía</span>
+            </div>
+            <button
+              class="w-full border-2 border-forest text-forest dark:border-white dark:text-white font-bold py-3 rounded-xl hover:bg-forest hover:text-white transition-all">Cotizar
+              Plan</button>
+          </div>
+        </div>
+
+        <!-- Beach Tours -->
+        <div
+          class="flex flex-col bg-background-light dark:bg-background-dark rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-white/5 group hover:shadow-2xl transition-all duration-300">
+          <div class="relative h-64 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+              style='background-image: url("images/pianguita.png");'>
+            </div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold text-forest dark:text-white mb-2">Beach Tours</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 font-display flex-grow">Tour de playas vírgenes
+              para los amantes del sol y el mar.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Playas</span>
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Relax</span>
+            </div>
+            <button
+              class="w-full border-2 border-forest text-forest dark:border-white dark:text-white font-bold py-3 rounded-xl hover:bg-forest hover:text-white transition-all">Cotizar
+              Plan</button>
+          </div>
+        </div>
+
+        <!-- Plan Iniciación Surf -->
+        <div
+          class="flex flex-col bg-background-light dark:bg-background-dark rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-white/5 group hover:shadow-2xl transition-all duration-300">
+          <div class="relative h-64 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsd7N73MxyhuVCul6ULwUBrC8kB25iwZeyIatFdULLbZ5th8091RtHSjn6Sv9Yk6bzBwxd1Sw70wZH8OrGBwJHxm0YbBU9Qc8LJDq4lQOR5ln5CwR-ToS0KAjUvr5Pv9KNJgYlnh2HW5SuqbIfvEHI8Ai_xReYhxBlAc-R9mCUx3xwNoFqeStyWaJyNbi0uUGQNrB7hGnbinRzORhaZMpptFoJyXANKj7Djdh8cDU9cNpuWuoMZl9khh0-QNYjuOaEF-33HqECEfQv");'>
+            </div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold text-forest dark:text-white mb-2">Plan Surf</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 font-display flex-grow">Aprende a dominar las olas
+              del Pacífico con nuestros instructores certificados.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Deporte</span>
+              <span class="text-xs font-bold text-slate-600 bg-white px-2 py-1 rounded">Clases</span>
+            </div>
+            <button
+              class="w-full border-2 border-forest text-forest dark:border-white dark:text-white font-bold py-3 rounded-xl hover:bg-forest hover:text-white transition-all">Cotizar
+              Plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-white/5 py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 font-display">
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="bg-primary p-1 rounded-lg">
+              <img src="images/logo.png" alt="MOVI5 Logo" class="h-8 w-auto invert brightness-0">
+            </div>
+            <h4 class="text-xl font-black text-primary dark:text-white !font-display">MOVI5</h4>
+          </div>
+          <p class="text-slate-500 text-sm leading-relaxed mb-6 font-display">
+            Líderes en el desarrollo turístico y logístico del Pacífico Colombiano. Conectamos personas,
+            propósitos y naturaleza.
+          </p>
+          <div class="flex gap-4">
+            <a class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+              href="#">
+              <span class="material-symbols-outlined text-sm">share</span>
+            </a>
+            <a class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+              href="#">
+              <span class="material-symbols-outlined text-sm">photo_camera</span>
+            </a>
+            <a class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+              href="#">
+              <span class="material-symbols-outlined text-sm">mail</span>
+            </a>
+          </div>
+        </div>
+        <div class="font-display">
+          <h4 class="font-bold mb-6 font-serif-heading text-lg">Servicios</h4>
+          <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+            <li><a class="hover:text-primary transition-colors" href="servicios.html">Vuelos Regional</a></li>
+            <li><a class="hover:text-primary transition-colors" href="servicios.html">Transporte Marítimo</a></li>
+            <li><a class="hover:text-primary transition-colors" href="hospedaje.html">Hospedajes de Lujo</a></li>
+            <li><a class="hover:text-primary transition-colors" href="experiencias.html">Tours de Avistamiento</a></li>
+          </ul>
+        </div>
+        <div class="font-display">
+          <h4 class="font-bold mb-6 font-serif-heading text-lg">Corporativo</h4>
+          <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+            <li><a class="hover:text-primary transition-colors" href="nosotros.html">Sobre Nosotros</a></li>
+            <li><a class="hover:text-primary transition-colors" href="contacto.html">Alianzas Estratégicas</a></li>
+            <li><a class="hover:text-primary transition-colors" href="nosotros.html#compromiso">Sostenibilidad</a></li>
+            <li><a class="hover:text-primary transition-colors" href="contacto.html">Contacto B2B</a></li>
+          </ul>
+        </div>
+        <div class="font-display">
+          <h4 class="font-bold mb-6 font-serif-heading text-lg">Novedades</h4>
+          <p class="text-sm text-slate-500 mb-4 italic">Recibe actualizaciones sobre nuevas rutas y
+            temporadas.</p>
+          <div class="flex gap-2">
+            <input
+              class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2 text-sm w-full focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+              placeholder="Tu email" type="email" />
+            <button class="bg-primary text-white p-2 rounded-lg">
+              <span class="material-symbols-outlined">send</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="pt-8 border-t border-slate-200 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 font-display">
+        <p class="text-xs text-slate-400">© 2024 MOVI5. Todos los derechos reservados. Turismo Sostenible
+          Certificado.</p>
+        <div class="flex gap-8 items-center grayscale opacity-50">
+          <img alt="Partner Logo 1" class="h-6"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpLT1OSBzv7_Vgf8R8VofSTAdNizo-c_hl2X_6bzCIrfB1p04Sg00w1KtO1HfbsqZRHpTTbTxk9taoRFT9reiS9oUlNrrZ9FpHIi4Aa36Z-X3GQTbkeoO0ThNrPVDnzbsnAD2V1EC2znfsAYPf8qsBK2P_0IKa8CuHlgt3e-xOsRtiE09_Tc2EdACbq5kQJLO2U5bR3CJcoHxc7bsm9rJcc5LFvBOu68K3rK6WftC7HkPU1s5Jc7FyjPVs4atDvoGMMGDXCFIidQov" />
+          <img alt="Partner Logo 2" class="h-6"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC-gRrm-wIgNOXI5L089zLVtg_8blmdfYz0eyAqdI1_teGmPjGWwqJTwo1t2AsZe81hLgJstntpWsB3YoGZxAGHEtJcm6PnWi0zH4zlc-DhgwVQasJJJVvlx0HOFKBT4u44VP-JEFLmridQA3Nj9XfutNC1-Ztrt9MU1ff4gam2s99LiDW9Qlmg5UxcaMD35eVcQzh61drplPeQj5l3Rzu7iO6hNvq1xjPPdJ7Xn-678e5S2ozwUvSJkFnI3RzB7loQVsrlQU0iV6q" />
+          <img alt="Partner Logo 3" class="h-6"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv5lGjVgMt_pRx8zvK3OQBj6vT26fGq6MiagaguuBSZMGwD466LbkS2IPJrA3dW5QqX32M8Xreb2tthgZudNB_blM7Hp1X-MmyAoRjNsSVOiN_FYvhzs6lcAXBa-r-tpVjrGX3GtCI32dMnTr5AgyV6giuMkPltmfx9ik4U-6mESkM3q800vHRiAqO01gieqXT4SrycGHcAE6oLLai5QfEwl9jW_VQ1PSHliv9i8uEclAPxKfUt6a3f5ISBA71pxGdiCAb2wZbFXur" />
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const menuBtn = document.getElementById('mobile-menu-button');
+    const closeBtn = document.getElementById('close-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuBackdrop = document.getElementById('menu-backdrop');
+
+    function openMenu() {
+      mobileMenu.classList.remove('hidden');
+      menuBackdrop.classList.remove('hidden');
+      setTimeout(() => {
+        mobileMenu.classList.remove('translate-x-full');
+        menuBackdrop.classList.add('opacity-100');
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      mobileMenu.classList.add('translate-x-full');
+      menuBackdrop.classList.remove('opacity-100');
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+        menuBackdrop.classList.add('hidden');
+      }, 500);
+      document.body.style.overflow = '';
+    }
+
+    menuBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    menuBackdrop.addEventListener('click', closeMenu);
+  </script>
+</body>
+
+</html>

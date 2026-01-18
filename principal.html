@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Movi5 - Servicios y Catálogo Detallado</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;700;900&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#157179",
+                        "forest": "#064e3b",
+                        "emerald-custom": "#10b981",
+                        "brown-custom": "#78350f",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#121f20",
+                        "earth": "#451a03",
+                    },
+                    fontFamily: {
+                        "display": ["Epilogue", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body { font-family: 'Epilogue', sans-serif; }
+            h1, h2, h3, h4, .font-serif-heading { font-family: 'Playfair Display', serif; }
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-nav {
+            background: rgba(18, 31, 32, 0.8);
+        }
+        .bg-soft-green {
+            background-color: #f0f4f4;
+        }
+        .dark .bg-soft-green {
+            background-color: #1a2a2b;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-[#121717] dark:text-white antialiased transition-colors duration-300">
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-[#15717915]">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="principal.html" class="flex items-center gap-3">
+                    <img src="images/logo.png" alt="MOVI5 Logo" class="h-10 w-auto">
+                    <h1 class="text-xl font-black tracking-tight text-primary dark:text-white !font-display">MOVI5</h1>
+                </a>
+            </div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold text-primary transition-colors" href="principal.html">Inicio</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="nosotros.html">Nosotros</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="destinos.html">Destinos</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors"
+                    href="hospedaje.html">Hospedajes</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors"
+                    href="experiencias.html">Experiencias</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors"
+                    href="servicios.html">Servicios</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="contacto.html">Contacto</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button onclick="window.location.href='contacto.html'"
+                    class="hidden md:block bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-bold tracking-wide hover:brightness-110 transition-all shadow-lg shadow-primary/20">
+                    Reserva aquí
+                </button>
+                <!-- Burger Button -->
+                <button id="mobile-menu-button" class="md:hidden text-primary p-2">
+                    <span class="material-symbols-outlined text-3xl">menu</span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu Drawer Integration -->
+        <!-- Backdrop Overlay -->
+        <div id="menu-backdrop"
+            class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0">
+        </div>
+
+        <!-- Side Drawer -->
+        <!-- Side Drawer -->
+        <div id="mobile-menu"
+            class="fixed inset-y-0 right-0 h-screen w-[85%] sm:w-80 z-[9999] bg-[#0B120B] border-l border-white/10 shadow-2xl hidden transition-transform duration-500 ease-in-out transform translate-x-full"
+            style="background-color: #0B120B !important; height: 100vh !important;">
+            <div class="relative p-8 h-full flex flex-col bg-[#0B120B]">
+                <div class="flex justify-between items-center mb-12">
+                    <img src="images/logo.png" alt="MOVI5 Logo" class="h-10 w-auto brightness-0 invert">
+                    <button id="close-menu-button"
+                        class="text-white/70 p-2 hover:text-white hover:rotate-90 transition-all duration-300">
+                        <span class="material-symbols-outlined text-3xl">close</span>
+                    </button>
+                </div>
+                <nav class="flex flex-col gap-6">
+                    <a class="text-xl font-bold text-white flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/10"
+                        href="principal.html">
+                        <span class="material-symbols-outlined text-primary">home</span> Inicio
+                    </a>
+                    <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+                        href="nosotros.html">
+                        <span class="material-symbols-outlined opacity-50">info</span> Nosotros
+                    </a>
+                    <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+                        href="destinos.html">
+                        <span class="material-symbols-outlined opacity-50">explore</span> Destinos
+                    </a>
+                    <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+                        href="hospedaje.html">
+                        <span class="material-symbols-outlined opacity-50">hotel</span> Hospedajes
+                    </a>
+                    <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+                        href="experiencias.html">
+                        <span class="material-symbols-outlined opacity-50">self_care</span> Experiencias
+                    </a>
+                    <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+                        href="servicios.html">
+                        <span class="material-symbols-outlined opacity-50">dashboard</span> Servicios
+                    </a>
+                    <a class="text-xl font-bold text-white/70 hover:text-white hover:bg-white/5 flex items-center gap-4 p-3 rounded-xl transition-all"
+                        href="contacto.html">
+                        <span class="material-symbols-outlined opacity-50">mail</span> Contacto
+                    </a>
+
+                    <div class="mt-auto pt-8 border-t border-white/10">
+                        <button onclick="window.location.href='https://app.movi5.co/'"
+                            class="w-full bg-primary text-white py-4 rounded-xl font-black text-lg shadow-xl hover:scale-105 transition-transform">
+                            Reservar Ahora
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <section class="relative h-[80vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div
+                class="absolute inset-0 bg-gradient-to-b from-background-dark/40 via-background-dark/20 to-background-light dark:to-background-dark z-10">
+            </div>
+            <div class="w-full h-full bg-center bg-cover scale-105"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA15Wr_wlGXxAiSV_iZsuTTtERExQlFpfCYjbp473PIATaPQuzW8ch4qd-KSgcyo6h2Enuj_puaQN7STBoEoGO-RF7k9V49p5Ctpu_6Ibcv2gfabjVXPEbNgovciTct20ZmIfcWd0ji25ACH31-ZA3_qGDyZyqUYMlqAAUXT-rtX-c-N-9B3om09npug0hJyAvPwbvk2WnqyNqeHyjdwNIVhDzSlfRlhiNAa-iMQf2dFncR1T4NUsCfGuFWlRRrp2IP4TP1a1kpEvns");'>
+            </div>
+        </div>
+        <div class="relative z-20 text-center px-6 max-w-4xl mx-auto">
+            <span
+                class="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold tracking-[0.2em] uppercase font-display">
+                Experiencia Integral Movi5
+            </span>
+            <h1 class="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+                Explora el Pacífico <br /><span class="text-emerald-custom italic font-light tracking-normal">como nunca
+                    antes</span>
+            </h1>
+        </div>
+    </section>
+    <section class="relative z-30 -mt-16 px-6 max-w-6xl mx-auto" id="explorar">
+        <div
+            class="bg-primary p-8 md:p-12 rounded-[2rem] shadow-2xl border border-white/20 text-center text-white relative overflow-hidden group">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-forest/50 to-primary/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-3xl md:text-4xl font-black mb-4 font-serif-heading">Reserva tu próxima experiencia</h2>
+                <p class="text-white/80 mb-8 max-w-2xl mx-auto font-display">
+                    Accede a nuestro sistema oficial de reservas para gestionar vuelos, transporte y hospedajes en
+                    tiempo real.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://app.movi5.co/" target="_blank"
+                        class="bg-white text-primary px-10 py-4 rounded-xl font-bold hover:bg-slate-100 transition-all shadow-xl flex items-center justify-center gap-2">
+                        Ir a Reservas
+                        <!-- <span class="material-symbols-outlined">external_link</span> -->
+                    </a>
+                    <a href="contacto.html"
+                        class="bg-transparent border-2 border-white text-white px-10 py-4 rounded-xl font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                        Hablar con un asesor <span class="material-symbols-outlined">chat</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 px-6 bg-white dark:bg-[#0d1617]" id="aliados">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span
+                    class="text-emerald-custom font-bold tracking-widest text-sm uppercase mb-4 block font-display">Estadía
+                    de Lujo</span>
+                <h2 class="text-4xl md:text-5xl font-black text-forest dark:text-white mb-4">Hospedajes Aliados en el
+                    Pacífico</h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-display">Refugios exclusivos donde
+                    la selva se encuentra con el mar, seleccionados por su compromiso con la excelencia.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                    class="group bg-white dark:bg-background-dark rounded-2xl overflow-hidden card-shadow border border-slate-100 dark:border-white/5 transition-all duration-300 hover:-translate-y-2">
+                    <div class="relative h-72 overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWycQ4HAVNHMAyGzkvz4nQKTLDfsang1_K7t-9pIUcl40kqw8yQ3gxiyusJQmqAPLEdyletTQQ0n6u49xmmKOygu09nurjHFyQfN8-bB3rR9pSAvN3l0Vch7rkjwYoJdFxg708uYKqMyZT2nfApeQwQ7PSJsei7I4fqcfan--J-HMKqGuWLHx6nAf_oamNJwsEg-PwcLE9zKpVE7SEsWdWU3jM9uuRlhS_diK4NreSpzUxBqnNhq0O1PXEhRdpoQW4lKXIa-1FAIF3");'>
+                        </div>
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-yellow-500 text-sm FILL-1">star</span>
+                            <span class="text-xs font-bold text-forest dark:text-white">4.5</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div
+                            class="flex items-center gap-2 text-emerald-custom text-xs font-bold uppercase tracking-widest mb-2">
+                            <span class="material-symbols-outlined text-sm">location_on</span>
+                            Buenaventura
+                        </div>
+                        <h3 class="text-2xl font-bold text-forest dark:text-white mb-6">Hotel Cordillera</h3>
+                        <button onclick="window.location.href='hospedaje.html'"
+                            class="w-full bg-emerald-custom text-white font-bold py-3.5 rounded-xl hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                            Ver disponibilidad
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="group bg-white dark:bg-background-dark rounded-2xl overflow-hidden card-shadow border border-slate-100 dark:border-white/5 transition-all duration-300 hover:-translate-y-2">
+                    <div class="relative h-72 overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                            style='background-image: url("images/ecolodge.png");'>
+                        </div>
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-yellow-500 text-sm FILL-1">star</span>
+                            <span class="text-xs font-bold text-forest dark:text-white">4.7</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div
+                            class="flex items-center gap-2 text-emerald-custom text-xs font-bold uppercase tracking-widest mb-2">
+                            <span class="material-symbols-outlined text-sm">location_on</span>
+                            La Barra
+                        </div>
+                        <h3 class="text-2xl font-bold text-forest dark:text-white mb-6">Nativo Home</h3>
+                        <button onclick="window.location.href='hospedaje.html'"
+                            class="w-full bg-emerald-custom text-white font-bold py-3.5 rounded-xl hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                            Ver disponibilidad
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="group bg-white dark:bg-background-dark rounded-2xl overflow-hidden card-shadow border border-slate-100 dark:border-white/5 transition-all duration-300 hover:-translate-y-2">
+                    <div class="relative h-72 overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                            style='background-image: url("images/ecolodge.png");'>
+                        </div>
+                        <div
+                            class="absolute top-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-yellow-500 text-sm FILL-1">star</span>
+                            <span class="text-xs font-bold text-forest dark:text-white">4.9</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div
+                            class="flex items-center gap-2 text-emerald-custom text-xs font-bold uppercase tracking-widest mb-2">
+                            <span class="material-symbols-outlined text-sm">location_on</span>
+                            Ladrilleros
+                        </div>
+                        <h3 class="text-2xl font-bold text-forest dark:text-white mb-6">Pacifico Hostel</h3>
+                        <button onclick="window.location.href='hospedaje.html'"
+                            class="w-full bg-emerald-custom text-white font-bold py-3.5 rounded-xl hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                            Ver disponibilidad
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 px-6 bg-background-light dark:bg-background-dark" id="destinos">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <span
+                        class="text-emerald-custom font-bold tracking-widest text-sm uppercase mb-4 block font-display">Postales
+                        del Pacífico</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-forest dark:text-white">Destinos Turísticos</h2>
+                </div>
+                <div class="flex gap-4">
+                    <button
+                        class="w-12 h-12 rounded-full border border-forest/20 flex items-center justify-center hover:bg-forest hover:text-white transition-all">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button
+                        class="w-12 h-12 rounded-full border border-forest/20 flex items-center justify-center hover:bg-forest hover:text-white transition-all">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div onclick="window.location.href='detalle_destino.html'"
+                    class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                        style='background-image: url("images/whale.png");'>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <span
+                            class="inline-block px-3 py-1 bg-emerald-custom text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-3">Playa
+                            y Avistamiento</span>
+                        <h4 class="text-xl font-bold text-white font-serif-heading">Juanchaco y Ladrilleros</h4>
+                    </div>
+                </div>
+                <div onclick="window.location.href='detalle_destino.html'"
+                    class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsd7N73MxyhuVCul6ULwUBrC8kB25iwZeyIatFdULLbZ5th8091RtHSjn6Sv9Yk6bzBwxd1Sw70wZH8OrGBwJHxm0YbBU9Qc8LJDq4lQOR5ln5CwR-ToS0KAjUvr5Pv9KNJgYlnh2HW5SuqbIfvEHI8Ai_xReYhxBlAc-R9mCUx3xwNoFqeStyWaJyNbi0uUGQNrB7hGnbinRzORhaZMpptFoJyXANKj7Djdh8cDU9cNpuWuoMZl9khh0-QNYjuOaEF-33HqECEfQv");'>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <span
+                            class="inline-block px-3 py-1 bg-emerald-custom text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-3">Playa
+                            y Descanso</span>
+                        <h4 class="text-xl font-bold text-white font-serif-heading">La Barra</h4>
+                    </div>
+                </div>
+                <div onclick="window.location.href='detalle_destino.html'"
+                    class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                        style='background-image: url("images/pianguita.png");'>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <span
+                            class="inline-block px-3 py-1 bg-emerald-custom text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-3">Playa
+                            y Manglar</span>
+                        <h4 class="text-xl font-bold text-white font-serif-heading">Piangüita</h4>
+                    </div>
+                </div>
+                <div onclick="window.location.href='detalle_destino.html'"
+                    class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-xl">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWycQ4HAVNHMAyGzkvz4nQKTLDfsang1_K7t-9pIUcl40kqw8yQ3gxiyusJQmqAPLEdyletTQQ0n6u49xmmKOygu09nurjHFyQfN8-bB3rR9pSAvN3l0Vch7rkjwYoJdFxg708uYKqMyZT2nfApeQwQ7PSJsei7I4fqcfan--J-HMKqGuWLHx6nAf_oamNJwsEg-PwcLE9zKpVE7SEsWdWU3jM9uuRlhS_diK4NreSpzUxBqnNhq0O1PXEhRdpoQW4lKXIa-1FAIF3");'>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <span
+                            class="inline-block px-3 py-1 bg-emerald-custom text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-3">Reserva
+                            Natural</span>
+                        <h4 class="text-xl font-bold text-white font-serif-heading">San Cipriano</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 bg-white dark:bg-[#0d1617]" id="planes">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span
+                    class="text-emerald-custom font-bold tracking-widest text-sm uppercase mb-4 block font-display">Paquetes
+                    Todo Incluido</span>
+                <h2 class="text-4xl md:text-5xl font-black text-forest dark:text-white mb-4">Experiencias y Planes desde
+                    Cali</h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-display">Salidas garantizadas desde
+                    la capital del Valle para que solo te preocupes por disfrutar.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div
+                    class="flex flex-col md:flex-row bg-background-light dark:bg-background-dark rounded-3xl overflow-hidden card-shadow border border-slate-100 dark:border-white/5 group">
+                    <div class="md:w-1/2 relative h-64 md:h-auto overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFclLEF676jrurcbEb--LUVcwa2fK00zm6s4E6oRjFllMQmhsxeQmv_Z9mFwqw5KJQp9g9hdXR0Zkj7fLe6IBAGLIh23baXiWyNHbcW1JMey838_CAALvz4-JhUmXa7k_0N650NYaoIJXzhm1_ZiGRDc5UHOe7pBbhn5CoYby3p7TUaQvlBGUb7vg-E09Xk2ILuiWv5hm2KKBhiUsg0zcCssucpcfOOoI3M1YboNb0TAUhdQPXEHTmLAWl5A_pZ4T7OA8umsZW-FB9");'>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-forest dark:text-white mb-2">Plan Amigas</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 font-display">Fin de semana de
+                                desconexión y aventura.</p>
+                            <div class="flex flex-wrap gap-4 mb-8">
+                                <div
+                                    class="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-white dark:bg-white/5 px-2.5 py-1 rounded-lg">
+                                    <span class="material-symbols-outlined text-emerald-custom text-base">flight</span>
+                                    Transp.
+                                </div>
+                                <div
+                                    class="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-white dark:bg-white/5 px-2.5 py-1 rounded-lg">
+                                    <span
+                                        class="material-symbols-outlined text-emerald-custom text-base">restaurant</span>
+                                    Alim.
+                                </div>
+                                <div
+                                    class="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-white dark:bg-white/5 px-2.5 py-1 rounded-lg">
+                                    <span class="material-symbols-outlined text-emerald-custom text-base">person</span>
+                                    Guía
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="window.location.href='experiencias.html'"
+                            class="w-full border-2 border-forest text-forest dark:border-white dark:text-white font-bold py-3 rounded-xl hover:bg-forest hover:text-white transition-all">Cotizar
+                            Plan</button>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row bg-background-light dark:bg-background-dark rounded-3xl overflow-hidden card-shadow border border-slate-100 dark:border-white/5 group">
+                    <div class="md:w-1/2 relative h-64 md:h-auto overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsd7N73MxyhuVCul6ULwUBrC8kB25iwZeyIatFdULLbZ5th8091RtHSjn6Sv9Yk6bzBwxd1Sw70wZH8OrGBwJHxm0YbBU9Qc8LJDq4lQOR5ln5CwR-ToS0KAjUvr5Pv9KNJgYlnh2HW5SuqbIfvEHI8Ai_xReYhxBlAc-R9mCUx3xwNoFqeStyWaJyNbi0uUGQNrB7hGnbinRzORhaZMpptFoJyXANKj7Djdh8cDU9cNpuWuoMZl9khh0-QNYjuOaEF-33HqECEfQv");'>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-forest dark:text-white mb-2">Avistamiento Ballenas</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 font-display">Temporada de
+                                gigantes en Magüipí y Bahía Málaga.</p>
+                            <div class="flex flex-wrap gap-4 mb-8">
+                                <div
+                                    class="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-white dark:bg-white/5 px-2.5 py-1 rounded-lg">
+                                    <span class="material-symbols-outlined text-emerald-custom text-base">flight</span>
+                                    Transp.
+                                </div>
+                                <div
+                                    class="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-white dark:bg-white/5 px-2.5 py-1 rounded-lg">
+                                    <span
+                                        class="material-symbols-outlined text-emerald-custom text-base">photo_camera</span>
+                                    Fotos
+                                </div>
+                                <div
+                                    class="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-white dark:bg-white/5 px-2.5 py-1 rounded-lg">
+                                    <span
+                                        class="material-symbols-outlined text-emerald-custom text-base">local_bar</span>
+                                    Snack
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="window.location.href='experiencias.html'"
+                            class="w-full border-2 border-forest text-forest dark:border-white dark:text-white font-bold py-3 rounded-xl hover:bg-forest hover:text-white transition-all">Cotizar
+                            Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 px-6 bg-background-light dark:bg-background-dark" id="catalogo">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-forest dark:text-white mb-4">Nuestros Servicios Base
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-display">Descubre todas las formas
+                    en las que conectamos tus sentidos con la magia del litoral.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div
+                    class="group bg-white dark:bg-background-dark rounded-2xl overflow-hidden border border-slate-100 dark:border-white/5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                            style='background-image: url("images/boat.png");'>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-4 text-forest dark:text-white">Vuelos Regional</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 line-clamp-2">Llega directamente a los
+                            destinos más remotos con total privacidad y seguridad aérea.</p>
+                        <button onclick="window.location.href='servicios.html'"
+                            class="w-full border border-forest text-forest dark:border-white dark:text-white font-bold py-2.5 rounded-lg hover:bg-forest hover:text-white transition-all text-sm uppercase tracking-wider">Ver
+                            detalles</button>
+                    </div>
+                </div>
+                <div
+                    class="group bg-white dark:bg-background-dark rounded-2xl overflow-hidden border border-slate-100 dark:border-white/5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                            style='background-image: url("images/boat.png");'>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-4 text-forest dark:text-white">Lanchas Rápidas</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 line-clamp-2">Navegación eficiente y
+                            segura por los esteros y costas del Pacífico colombiano.</p>
+                        <button onclick="window.location.href='servicios.html'"
+                            class="w-full border border-forest text-forest dark:border-white dark:text-white font-bold py-2.5 rounded-lg hover:bg-forest hover:text-white transition-all text-sm uppercase tracking-wider">Ver
+                            detalles</button>
+                    </div>
+                </div>
+                <div
+                    class="group bg-white dark:bg-background-dark rounded-2xl overflow-hidden border border-slate-100 dark:border-white/5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                            style='background-image: url("images/bus.png");'>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-4 text-forest dark:text-white">Bus Intermunicipal</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 line-clamp-2">Conectamos desde las
+                            principales terminales hacia el Pacífico con rutas seguras.</p>
+                        <button onclick="window.location.href='servicios.html'"
+                            class="w-full border border-forest text-forest dark:border-white dark:text-white font-bold py-2.5 rounded-lg hover:bg-forest hover:text-white transition-all text-sm uppercase tracking-wider">Ver
+                            detalles</button>
+                    </div>
+                </div>
+                <div
+                    class="group bg-white dark:bg-background-dark rounded-2xl overflow-hidden border border-slate-100 dark:border-white/5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                            style='background-image: url("images/bus.png");'>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-4 text-forest dark:text-white">Puerta a Puerta</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 line-clamp-2">Transporte privado o
+                            compartido con recogida en casa. Ideal para grupos.</p>
+                        <button onclick="window.location.href='servicios.html'"
+                            class="w-full border border-forest text-forest dark:border-white dark:text-white font-bold py-2.5 rounded-lg hover:bg-forest hover:text-white transition-all text-sm uppercase tracking-wider">Ver
+                            detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 bg-background-dark text-white" id="flota">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black mb-4">Nuestra Infraestructura</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto font-display">La flota más moderna y versátil del Pacífico,
+                    mantenida bajo los estándares internacionales más rigurosos.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-[600px] font-display">
+                <div class="md:col-span-8 rounded-2xl overflow-hidden relative group">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 flex flex-col justify-end p-8">
+                        <h4 class="text-2xl font-bold font-serif-heading">Aeronaves de Corto Alcance</h4>
+                        <p class="text-slate-300 text-sm">Flota especializada para pistas remotas.</p>
+                    </div>
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWycQ4HAVNHMAyGzkvz4nQKTLDfsang1_K7t-9pIUcl40kqw8yQ3gxiyusJQmqAPLEdyletTQQ0n6u49xmmKOygu09nurjHFyQfN8-bB3rR9pSAvN3l0Vch7rkjwYoJdFxg708uYKqMyZT2nfApeQwQ7PSJsei7I4fqcfan--J-HMKqGuWLHx6nAf_oamNJwsEg-PwcLE9zKpVE7SEsWdWU3jM9uuRlhS_diK4NreSpzUxBqnNhq0O1PXEhRdpoQW4lKXIa-1FAIF3");'>
+                    </div>
+                </div>
+                <div class="md:col-span-4 rounded-2xl overflow-hidden relative group">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 flex flex-col justify-end p-8">
+                        <h4 class="text-xl font-bold font-serif-heading">Lanchas de Alta Gama</h4>
+                        <p class="text-slate-300 text-sm">Motores ecológicos y máximo confort.</p>
+                    </div>
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
+                        style='background-image: url(&quot;images/boat.png&quot;);'>
+                    </div>
+                </div>
+                <div class="md:col-span-4 rounded-2xl overflow-hidden relative group">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 flex flex-col justify-end p-8">
+                        <h4 class="text-xl font-bold font-serif-heading">Transporte Terrestre</h4>
+                        <p class="text-slate-300 text-sm">Camionetas 4x4 equipadas para aventura.</p>
+                    </div>
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6LpkGI81xCWPnZWqO-mY4rs9BBkl1_VjUlF2Th7OrS4uhBDDkuJTFOFN8F-gAT5toUW1ZhaTVV2cXmW2IpCHbFpcrlwZl98QIVgJHtmAzvWnrna-c75j1u4AMs1C1wr_VZ8jjV87W9b98Sct7pPyJlYXm8RCH_tZ30Ab87fFLjLBarWUYPbIrCF9uHGbywseUuNiy4IsFay4FMrHDWfa2KXcOGWPeJbsBTSbp88LOAkS61WJb2GO0L-CYAqy4tCHT78nKRu78B7rv");'>
+                    </div>
+                </div>
+                <div class="md:col-span-8 rounded-2xl overflow-hidden relative group">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 flex flex-col justify-end p-8">
+                        <h4 class="text-2xl font-bold font-serif-heading">Base de Operaciones</h4>
+                        <p class="text-slate-300 text-sm">Hangares y muelles privados exclusivos.</p>
+                    </div>
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwt12kg6EEjJQyh0Ney-ADvqvQRrQxpQK-a-oK1cbdp6GcrUfK4x6B_QUia4oJdDmDPSk-rWTzLlKHjoNYt5JtiAq4b35IGIrjTFqbl4Gv9BjLRgVlDHZzWlRyTNnJF8_oD_uy9jqlRmfQdrCfZFJ4SLAc4hrtPU5zny9EDdZjwkFexbXibqgvA3nGzJwe0FSxXobWOAs2WIirq3oZBstGOt2XCGgb08slKfrtSpGNntdc7BjojxNzonOwvNMTpJDt-g9IWBotxH45");'>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 bg-[#f8fafc] dark:bg-[#0a1112]" id="compromiso">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-3xl mb-16">
+                <span
+                    class="text-emerald-custom font-bold tracking-widest text-sm uppercase mb-4 block font-display">Sostenibilidad
+                    &amp; Comunidad</span>
+                <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight text-forest dark:text-white">Impacto
+                    Local: Creciendo con el Pacífico</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-display">
+                    En Movi5, nuestra huella va más allá de los mapas. Nos comprometemos con un modelo de turismo que
+                    protege la biodiversidad y fortalece el tejido social, asegurando que el desarrollo del Pacífico sea
+                    liderado por su propia gente.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div
+                    class="bg-white dark:bg-background-dark p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-emerald-custom/10 text-emerald-custom rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-3xl">eco</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-forest dark:text-white font-serif-heading">Sostenibilidad
+                    </h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-display">Prácticas
+                        eco-amigables integradas en toda nuestra red de transporte y hospedaje para minimizar el impacto
+                        ambiental.</p>
+                    <div class="mt-6">
+                        <button
+                            class="text-emerald-custom text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all font-display">
+                            Conocer más <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-background-dark p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-brown-custom/10 text-brown-custom rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-3xl">groups</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-forest dark:text-white font-serif-heading">Desarrollo
+                        Comunitario</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-display">Priorizamos el
+                        empleo local y brindamos apoyo directo a emprendimientos y proveedores del Pacífico colombiano.
+                    </p>
+                    <div class="mt-6">
+                        <button
+                            class="text-brown-custom text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all font-display">
+                            Conocer más <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-background-dark p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-emerald-custom/10 text-emerald-custom rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-3xl">forest</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-forest dark:text-white font-serif-heading">Conservación</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-display">Programas activos
+                        de protección de la biodiversidad y protocolos de avistamiento responsable de especies.</p>
+                    <div class="mt-6">
+                        <button
+                            class="text-emerald-custom text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all font-display">
+                            Conocer más <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-background-dark p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-brown-custom/10 text-brown-custom rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-3xl">school</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-forest dark:text-white font-serif-heading">Educación</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-display">Capacitación
+                        continua para guías y personal local en bilingüismo, primeros auxilios y servicio de clase
+                        mundial.</p>
+                    <div class="mt-6">
+                        <button
+                            class="text-brown-custom text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all font-display">
+                            Conocer más <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 px-6 bg-white dark:bg-background-dark">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-12 text-forest dark:text-white">Preguntas
+                Frecuentes</h2>
+            <div class="space-y-4">
+                <details class="group border-b border-slate-100 dark:border-white/10 pb-4">
+                    <summary class="flex items-center justify-between cursor-pointer list-none py-4">
+                        <span class="font-bold text-lg text-slate-800 dark:text-slate-200">¿Cómo puedo reservar?</span>
+                        <span
+                            class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed font-display text-sm">Puedes realizar
+                        tus reservas directamente a través de nuestra página web o por medio de nuestro WhatsApp oficial
+                        para una atención inmediata.</p>
+                </details>
+                <details class="group border-b border-slate-100 dark:border-white/10 pb-4">
+                    <summary class="flex items-center justify-between cursor-pointer list-none py-4">
+                        <span class="font-bold text-lg text-slate-800 dark:text-slate-200">¿Cuál es la política de
+                            reembolsos?</span>
+                        <span
+                            class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed font-display text-sm">No se emiten
+                        reembolsos totales por cancelaciones de viaje. Sin embargo, la opción de cancelación de
+                        suscripción está disponible según los términos de su plan.</p>
+                </details>
+                <details class="group border-b border-slate-100 dark:border-white/10 pb-4">
+                    <summary class="flex items-center justify-between cursor-pointer list-none py-4">
+                        <span class="font-bold text-lg text-slate-800 dark:text-slate-200">¿Cuánto equipaje puedo
+                            llevar?</span>
+                        <span
+                            class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed font-display text-sm">El límite de
+                        equipaje varía según el tipo de transporte seleccionado (lancha o bus). Te recomendamos
+                        consultar las especificaciones al momento de tu reserva para evitar inconvenientes.</p>
+                </details>
+                <details class="group border-b border-slate-100 dark:border-white/10 pb-4">
+                    <summary class="flex items-center justify-between cursor-pointer list-none py-4">
+                        <span class="font-bold text-lg text-slate-800 dark:text-slate-200">¿Las lanchas operan bajo
+                            cualquier condición climática?</span>
+                        <span
+                            class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed font-display text-sm">La seguridad es
+                        nuestra prioridad. Nuestras salidas están sujetas a las condiciones de la marea y el clima,
+                        siempre coordinadas por capitanes expertos y autoridades marítimas.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-white/5 py-20 px-6"
+        id="contacto">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-primary p-1.5 rounded-lg">
+                            <svg class="size-6 text-white" fill="none" viewBox="0 0 48 48"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+                            </svg>
+                        </div>
+                        <h1 class="text-xl font-black tracking-tight text-primary dark:text-white !font-display">MOVI5
+                        </h1>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6 font-display">
+                        Líderes en el desarrollo turístico y logístico del Pacífico Colombiano. Conectamos personas,
+                        propósitos y naturaleza.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-sm">share</span>
+                        </a>
+                        <a class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-sm">photo_camera</span>
+                        </a>
+                        <a class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-sm">mail</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="font-display">
+                    <h4 class="font-bold mb-6 font-serif-heading text-lg">Servicios</h4>
+                    <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="servicios.html">Vuelos Regional</a>
+                        </li>
+                        <li><a class="hover:text-primary transition-colors" href="servicios.html">Transporte
+                                Marítimo</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="hospedaje.html">Hospedajes de Lujo</a>
+                        </li>
+                        <li><a class="hover:text-primary transition-colors" href="experiencias.html">Tours de
+                                Avistamiento</a></li>
+                    </ul>
+                </div>
+                <div class="font-display">
+                    <h4 class="font-bold mb-6 font-serif-heading text-lg">Corporativo</h4>
+                    <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="contacto.html">Alianzas
+                                Estratégicas</a></li>
+                        <li><a class="hover:text-primary transition-colors"
+                                href="nosotros.html#compromiso">Sostenibilidad</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="contacto.html">Contacto B2B</a></li>
+                    </ul>
+                </div>
+                <div class="font-display">
+                    <h4 class="font-bold mb-6 font-serif-heading text-lg">Novedades</h4>
+                    <p class="text-sm text-slate-500 mb-4 italic">Recibe actualizaciones sobre nuevas rutas y
+                        temporadas.</p>
+                    <div class="flex gap-2">
+                        <input
+                            class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2 text-sm w-full focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                            placeholder="Tu email" type="email" />
+                        <button class="bg-primary text-white p-2 rounded-lg">
+                            <span class="material-symbols-outlined">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-slate-200 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 font-display">
+                <p class="text-xs text-slate-400">© 2024 MOVI5. Todos los derechos reservados. Turismo Sostenible
+                    Certificado.</p>
+                <div class="flex gap-8 items-center grayscale opacity-50">
+                    <img alt="Partner Logo 1" class="h-6"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpLT1OSBzv7_Vgf8R8VofSTAdNizo-c_hl2X_6bzCIrfB1p04Sg00w1KtO1HfbsqZRHpTTbTxk9taoRFT9reiS9oUlNrrZ9FpHIi4Aa36Z-X3GQTbkeoO0ThNrPVDnzbsnAD2V1EC2znfsAYPf8qsBK2P_0IKa8CuHlgt3e-xOsRtiE09_Tc2EdACbq5kQJLO2U5bR3CJcoHxc7bsm9rJcc5LFvBOu68K3rK6WftC7HkPU1s5Jc7FyjPVs4atDvoGMMGDXCFIidQov" />
+                    <img alt="Partner Logo 2" class="h-6"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC-gRrm-wIgNOXI5L089zLVtg_8blmdfYz0eyAqdI1_teGmPjGWwqJTwo1t2AsZe81hLgJstntpWsB3YoGZxAGHEtJcm6PnWi0zH4zlc-DhgwVQasJJJVvlx0HOFKBT4u44VP-JEFLmridQA3Nj9XfutNC1-Ztrt9MU1ff4gam2s99LiDW9Qlmg5UxcaMD35eVcQzh61drplPeQj5l3Rzu7iO6hNvq1xjPPdJ7Xn-678e5S6ozwUvSJkFnI3RzB7loQVsrlQU0iV6q" />
+                    <img alt="Partner Logo 3" class="h-6"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv5lGjVgMt_pRx8zvK3OQBj6vT26fGq6MiagaguuBSZMGwD466LbkS2IPJrA3dW5QqX32M8Xreb2tthgZudNB_blM7Hp1X-MmyAoRjNsSVOiN_FYvhzs6lcAXBa-r-tpVjrGX3GtCI32dMnTr5AgyV6giuMkPltmfx9ik4U-6mESkM3q800vHRiAqO01gieqXT4SrycGHcAE6oLLai5QfEwl9jW_VQ1PSHliv9i8uEclAPxKfUt6a3f5ISBA71pxGdiCAb2wZbFXur" />
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const closeBtn = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBackdrop = document.getElementById('menu-backdrop');
+
+        function openMenu() {
+            mobileMenu.classList.remove('hidden');
+            menuBackdrop.classList.remove('hidden');
+            setTimeout(() => {
+                mobileMenu.classList.remove('translate-x-full');
+                menuBackdrop.classList.add('opacity-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            menuBackdrop.classList.remove('opacity-100');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+                menuBackdrop.classList.add('hidden');
+            }, 500);
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        menuBackdrop.addEventListener('click', closeMenu);
+    </script>
+</body>
+
+</html>
